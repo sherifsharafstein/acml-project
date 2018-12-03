@@ -1,0 +1,36 @@
+<html>
+<head>
+<style>
+
+</style>
+</head>
+<body>
+
+Artist<input type='text' id="artist">
+Track<input type='text' id="track">
+<button onclick='yoo()'>login</buttton>
+<div id="lyrics"></div>
+<div id="itunes"></div>
+
+<script>
+	function yoo(){
+		var a = document.getElementById("artist").value;
+		var t = document.getElementById("track").value;
+		var Http1 = new XMLHttpRequest();
+		var url1='https://orion.apiseeds.com/api/music/lyric/'+a+'/'+t+'/?apikey=N1J0PydabFTYUhgQdOoZV0GmacLMJUHWX3cIlQtHuH87Gg171bt7bAVTVIKBncSf';
+		Http1.open("GET", url1);
+		Http1.send();
+		Http1.onreadystatechange=(e)=>{
+			document.getElementById("lyrics").innerHTML = JSON.parse(Http1.responseText).result.track.text;
+		}
+		url2 = 'https://itunes.apple.com/search?term='+a+'+'+t.split(' ').join('+')+"'";
+		var Http2 = new XMLHttpRequest();
+		Http2.open("GET", url2);
+		Http2.send();
+		Http2.onreadystatechange=(e)=>{
+			console.log = JSON.parse(Http2.responseText);
+		}
+	}
+</script>
+</body>
+</html>
